@@ -1,5 +1,8 @@
+import 'package:chat_app/core/extensions/extensions.dart';
+import 'package:chat_app/core/routes/routes.dart';
 import 'package:chat_app/features/conversations/logic/conversation_cubit.dart';
-import 'package:chat_app/features/conversations/logic/conversations_state.dart';
+import 'package:chat_app/features/conversations/logic/conversation_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,49 +13,48 @@ class ConversationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ConversationCubit>();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        leading: SvgPicture.asset('assets/svgs/leading.svg'),
-        title: Text(
-          'Chat',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-            fontSize: 25,
-            color: Theme.of(context).colorScheme.onPrimary,
+    return BlocBuilder<ConversationCubit, ConversationState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            leading: SvgPicture.asset('assets/svgs/leading.svg'),
+            title: Text(
+              'Chats',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
+            // actions: [
+            //   IconButton(
+            //     onPressed: () {
+            //       FirebaseAuth.instance.signOut();
+            //       context.pushNamedAndRemoveUntil(Routes.login);
+            //     },
+            //     icon: Icon(Icons.abc),
+            //   ),
+            // ],
           ),
-        ),
-        
-      ),
-      bottomNavigationBar: BlocBuilder<ConversationCubit, ConversationsState>(
-        builder: (context, state) {
-          return BottomNavigationBar(
+          bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentPage,
             onTap: (value) {
               cubit.changePage(value);
             },
-            selectedItemColor: Theme.of(context).colorScheme.primary,
-            selectedIconTheme: IconThemeData(
-              color: Theme.of(context).colorScheme.primary,
-            ),
             items: [
               BottomNavigationBarItem(
-                icon:Icon(Icons.message_outlined) ,
+                icon: Icon(Icons.message),
                 label: 'Chats',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline_rounded),
+                icon: Icon(Icons.person),
                 label: 'Profile',
               ),
             ],
-          );
-        },
-      ),
-      body: BlocBuilder<ConversationCubit, ConversationsState>(  
-        builder: (context, state) {
-          return cubit.pages[cubit.currentPage];
-        },
-      ),
+          ),
+          body: cubit.screens[cubit.currentPage],
+        );
+      },
     );
   }
 }

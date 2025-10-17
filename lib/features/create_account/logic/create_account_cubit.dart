@@ -1,7 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:chat_app/features/create_user/logic/create_user_state.dart';
-import 'package:chat_app/features/create_user/models/create_user_model.dart';
+
+import 'package:chat_app/features/create_account/logic/create_account_state.dart';
+import 'package:chat_app/features/create_account/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,14 +10,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateUserCubit extends Cubit<CreateUserState> {
-  CreateUserCubit() : super(CreateUserIntialState());
-
-  Dio dio = Dio();
-  File? image;
-  String imagePath='';
+class CreateAccountCubit extends Cubit<CreateAccountState> {
+  CreateAccountCubit() : super(CreateAccountIntialState());
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  File? image;
+  Dio dio = Dio();
+  String imagePath = ''; 
   pickImage(bool isCamera) async {
     final imagePicker = ImagePicker();
     final pickedImage = await imagePicker.pickImage(
@@ -25,7 +26,7 @@ class CreateUserCubit extends Cubit<CreateUserState> {
     if (pickedImage != null) {
       image = File(pickedImage.path);
       uploadImage();
-      emit(CreateUserPickImageState());
+      emit(PickImageState());
     }
   }
 
@@ -57,26 +58,29 @@ class CreateUserCubit extends Cubit<CreateUserState> {
     }
   }
 
-  createUser() async {
+  createAccount() async {
     if (formKey.currentState!.validate()) {
-      emit(CreateUserLoadingState());
+      emit(CreateAccountLoadingState());
       try {
         final db = FirebaseFirestore.instance;
-        final data = CreateUserModel(
+        final data = UserModel(
           uid: FirebaseAuth.instance.currentUser!.uid,
           name: nameController.text,
           email: FirebaseAuth.instance.currentUser!.email!,
-          imageUrl: imagePath
+          phone: phoneController.text,
+          profileUrl: image != null ? imagePath : null,
         );
         await db
             .collection('Users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .set(data.toMap());
-        log(data.imageUrl!);
-        emit(CreateUserSuccessState());
+        emit(CreateAccountSuccessState());
       } on FirebaseException catch (e) {
-        emit(CreateUserErrorState(e.message ?? e.toString()));
+        emit(CreateAccountErrorState(e.message ?? e.toString()));
       }
     }
   }
+
+  
+
 }

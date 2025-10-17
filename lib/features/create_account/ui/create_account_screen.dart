@@ -1,10 +1,10 @@
-import 'package:chat_app/features/register/ui/widgets/register_form.dart';
-import 'package:chat_app/features/register/ui/widgets/register_header.dart';
-import 'package:chat_app/features/register/ui/widgets/register_submit.dart';
+import 'package:chat_app/features/create_account/ui/widgets/create_account_form.dart';
+import 'package:chat_app/features/create_account/ui/widgets/create_account_header.dart';
+import 'package:chat_app/features/create_account/ui/widgets/create_account_submit.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+class CreateAccountScreen extends StatelessWidget {
+  const CreateAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class RegisterScreen extends StatelessWidget {
       body: Column(
         spacing: 20, 
         children: [
-          RegisterHeader(), 
+          CreateAccountHeader(), 
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -20,12 +20,12 @@ class RegisterScreen extends StatelessWidget {
                 child: Column(
                   spacing: 10,
                   children: [
-                    RegisterForm(),
+                    CreateAccountForm(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: RegisterSubmit()),
+                        child: CreateAccountSubmit()),
                     ),
                   ],
                 ),

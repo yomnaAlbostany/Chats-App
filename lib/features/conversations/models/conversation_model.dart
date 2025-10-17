@@ -1,15 +1,16 @@
 class ConversationModel {
   final String uid;
   final String name;
-  final String? imageUrl;
   final String email;
+  final String phone;
+  final String? profileUrl;
 
-  ConversationModel( {
+  ConversationModel({
     required this.uid,
     required this.name,
     required this.email,
-    required this.imageUrl
-
+    required this.phone,
+    required this.profileUrl,
   });
 
   factory ConversationModel.fromMap(Map<String, dynamic> map) {
@@ -17,7 +18,8 @@ class ConversationModel {
       uid: map['uid'],
       name: map['name'],
       email: map['email'],
-      imageUrl: map['imageUrl']
+      phone: map['phone'],
+      profileUrl: map['profileUrl'],
     );
   }
 }

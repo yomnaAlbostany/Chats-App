@@ -21,10 +21,3 @@ final class MessageErrorState extends MessagesState {
 }
 
 final class MessageSuccessState extends MessagesState {}
-
-final class MessageUpdateState extends MessagesState {
-  final bool status;
-
-  MessageUpdateState(this.status);
-
-}

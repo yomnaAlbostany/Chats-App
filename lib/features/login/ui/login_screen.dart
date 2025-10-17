@@ -1,6 +1,6 @@
 import 'package:chat_app/features/login/ui/widgets/login_form.dart';
 import 'package:chat_app/features/login/ui/widgets/login_header.dart';
-import 'package:chat_app/features/login/ui/widgets/submit_btn.dart';
+import 'package:chat_app/features/login/ui/widgets/login_submit.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,29 +9,30 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          spacing: 15,
-          children: [
-            LoginHeader(),
-            Expanded(
-              child: SingleChildScrollView(
+      body: Column(
+        spacing: 20,
+        children: [
+          LoginHeader(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
+                  spacing: 10,
                   children: [
                     LoginForm(),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                        child: SubmitBtn(),
-                      )),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: LoginSubmit()),
+                    ),
                   ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

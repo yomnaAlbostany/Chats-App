@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 extension ContextEx on BuildContext {
-  void pushNamed(String route,Object? arguments) {
-    Navigator.pushNamed(this, route,arguments:arguments );
+  void pushNamed(String route,{Object? arguments}) {
+    Navigator.pushNamed(this, route,arguments: arguments);
   }
 
   void pushNamedAndRemoveUntil(String route) {

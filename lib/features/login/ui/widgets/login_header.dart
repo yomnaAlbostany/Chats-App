@@ -1,5 +1,5 @@
-import 'package:chat_app/core/custom/custom_button.dart';
-import 'package:chat_app/core/helpers/extensions.dart';
+import 'package:chat_app/core/customs/custom_button.dart';
+import 'package:chat_app/core/extensions/extensions.dart';
 import 'package:chat_app/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,49 +12,45 @@ class LoginHeader extends StatelessWidget {
     return Stack(
       children: [
         SvgPicture.asset('assets/svgs/Rectangle.svg'),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 50),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 24,
-              top: 60,
-              bottom: 20,
-            ),
-            child: Column(
-              spacing: 15,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 32,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+        Positioned(
+          top: 50,
+          right: 25,
+          left: 30,
+          child: Column(
+            spacing: 10,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
-                    CustomButton(
-                      text: 'Register',
-                      onPressed: () {
-                        context.pushReplacementNamed(Routes.register);
-                      },
-                    ),
-                  ],
-                ),
-                Text(
-                  'Enter your\nemail address',
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontWeight: FontWeight.w500,
                   ),
+                  CustomButton(
+                    btnColor: Theme.of(context).colorScheme.onPrimary.withAlpha(230),
+                    textColor: Theme.of(context).colorScheme.secondary,
+                    text: 'Register',
+                    width: 95,
+                    onPressed: () {
+                      context.pushReplacementNamed(Routes.register);
+                    },
+                  ),
+                ],
+              ),
+              Text(
+                'Enter your\nEmail',
+                style: TextStyle(
+                  fontSize: 29,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],
